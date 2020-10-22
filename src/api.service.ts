@@ -6,9 +6,9 @@ import axios, {
 import CookiesService from "./cookies.service";
 import {defer, from, Observable} from "rxjs";
 import {map} from "rxjs/operators";
-import {ApiServiceInterface, RequestOptionsInterface} from "../index";
+import {ApiServiceInterface, RequestOptionsInterface} from "./interfaces";
 
-export default class ApiBaseService implements ApiServiceInterface {
+export default class ApiService implements ApiServiceInterface {
     protected api: AxiosInstance;
     private tokenCookie = 'token';
 

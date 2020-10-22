@@ -1,28 +1,9 @@
-// // rollup.config.js
-// import typescript from '@rollup/plugin-typescript';
-// import commonjs from '@rollup/plugin-commonjs';
-//
-// export default {
-//   input: './src/index.ts',
-//   output: {
-//     dir: 'output',
-//     format: 'cjs'
-//   },
-//   plugins: [
-//     typescript({ module: 'CommonJS' }),
-//     commonjs({ extensions: ['.js', '.ts'] }) // the ".ts" extension is required
-//   ]
-// };
-
-
 import typescript from '@rollup/plugin-typescript';
 import commonjs from '@rollup/plugin-commonjs';
 import babel from '@rollup/plugin-babel';
 import {terser} from "rollup-plugin-terser";
 import pkg from "./package.json";
-
-const minifyExtension = pathToFile => pathToFile.replace(/\.js$/, ".min.js");
-
+import nodeResolve from "@rollup/plugin-node-resolve";
 
 const baseConfig = {
     input: "src/index.ts",
@@ -33,9 +14,9 @@ const baseConfig = {
         }),
         typescript({module: 'CommonJS'}),
         commonjs({extensions: ['.js', '.ts']}), // the ".ts" extension is required
+        nodeResolve(),
     ],
     external: [
-        'rxjs/operators',
         ...Object.keys(pkg.dependencies),
         ...Object.keys(pkg.peerDependencies)
     ]

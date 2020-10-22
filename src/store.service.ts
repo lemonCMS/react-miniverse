@@ -9,14 +9,13 @@ import {
     takeUntil,
     tap
 } from "rxjs/operators";
-import {StoreCacheInterface, DataInterface, StoreServiceInterface} from "../index";
-
+import {StoreCacheInterface, DataInterface, StoreServiceInterface} from "./interfaces";
 
 export default class StoreService implements StoreServiceInterface {
     private loaded = false;
     private data: DataInterface = {}
 
-    public set<T = any>(namespace: string, key: string, params?: any, value?: any) {
+    public set<T = any>(namespace: string, key: string, params?: any, value?: T): ReplaySubject<T | undefined> {
         if (!this.data[namespace]) {
             this.data[namespace] = {};
         }
@@ -79,7 +78,7 @@ export default class StoreService implements StoreServiceInterface {
             );
     }
 
-    public import(data: { [key: string]: any }) {
+    public import(data: { [key: string]: any }): void {
 
         if (this.loaded || typeof data === 'undefined') {
             return;
