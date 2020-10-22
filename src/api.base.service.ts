@@ -6,22 +6,7 @@ import axios, {
 import CookiesService from "./cookies.service";
 import {defer, from, Observable} from "rxjs";
 import {map} from "rxjs/operators";
-
-interface RequestOptionsInterface {
-    [propName: string]: any;
-}
-
-export interface ApiServiceInterface {
-    get<T = any>(url: string, params?: any, options?: RequestOptionsInterface): Observable<T>;
-
-    post<T = any>(url: string, data?: any, options?: RequestOptionsInterface): Observable<T>;
-
-    put<T = any>(url: string, data?: any, options?: RequestOptionsInterface): Observable<T>;
-
-    patch<T = any>(url: string, data?: any, options?: RequestOptionsInterface): Observable<T>;
-
-    delete<T = any>(url: string, data?: any): Observable<T>;
-}
+import {ApiServiceInterface, RequestOptionsInterface} from "../index";
 
 export default class ApiBaseService implements ApiServiceInterface {
     protected api: AxiosInstance;

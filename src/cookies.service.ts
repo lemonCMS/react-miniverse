@@ -1,8 +1,9 @@
 import Cookies, {CookieGetOptions} from "universal-cookie";
 import {Request} from "express";
 import {CookieSetOptions} from "universal-cookie/cjs/types";
+import {CookiesServiceInterface} from "../index";
 
-export default class CookiesService {
+export default class CookiesService implements CookiesServiceInterface {
   private cookies: Cookies;
 
   constructor() {
