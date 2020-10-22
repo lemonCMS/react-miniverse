@@ -3,9 +3,8 @@ import StoreService from "./store.service";
 import CookiesService from "./cookies.service";
 import useColdOrHot from "./useColdOrHot";
 
-export default {
-    ApiBaseService,
-    StoreService,
-    CookiesService,
-    useColdOrHot,
-};
+export {ApiBaseService};
+export {StoreService};
+export {CookiesService};
+export {useColdOrHot};
+

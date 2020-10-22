@@ -21,6 +21,9 @@ import babel from '@rollup/plugin-babel';
 import {terser} from "rollup-plugin-terser";
 import pkg from "./package.json";
 
+const minifyExtension = pathToFile => pathToFile.replace(/\.js$/, ".min.js");
+
+
 const baseConfig = {
     input: "src/index.ts",
     plugins: [
@@ -30,7 +33,6 @@ const baseConfig = {
         }),
         typescript({module: 'CommonJS'}),
         commonjs({extensions: ['.js', '.ts']}), // the ".ts" extension is required
-        terser(),
     ],
     external: [
         'rxjs/operators',
@@ -38,6 +40,14 @@ const baseConfig = {
         ...Object.keys(pkg.peerDependencies)
     ]
 };
+
+const minifyConfig = {
+    ...baseConfig,
+    plugins: [
+        ...baseConfig.plugins,
+        terser()
+    ]
+}
 
 export default [
     Object.assign(
@@ -49,6 +59,16 @@ export default [
             }
         },
         baseConfig
+    ),
+    Object.assign(
+        {
+            output: {
+                file: "cjs/index.min.js",
+                format: "cjs",
+                exports: "default",
+            }
+        },
+        minifyConfig
     ),
     Object.assign(
         {

@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
-import {CacheInterface} from './store.service';
+import {StoreCacheInterface} from "../index";
 
-const useColdOrHot = <T = any>(resource: CacheInterface<T>): T => {
+const useColdOrHot = <T = any>(resource: StoreCacheInterface<T>): T => {
     const [state, setState] = useState<T>(resource.cold());
 
     useEffect(() => {

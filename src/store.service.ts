@@ -9,26 +9,9 @@ import {
   takeUntil,
   tap
 } from "rxjs/operators";
+import {StoreCacheInterface, DataInterface} from "../index";
 
-export interface CacheInterface<T = any> {
-  hot: () => Observable<T>;
-  has: (params?: any) => boolean;
-  cold: (defaultValue?: any) => T;
-  load: () => Observable<T>;
-  toPromise: () => Promise<T>;
-}
 
-export interface NameSpaceInterface {
-  [key: string]: {
-    params: string;
-    value: ReplaySubject<any>;
-    static: any;
-  }
-}
-
-export interface DataInterface {
-  [key: string]: NameSpaceInterface;
-}
 
 export default class StoreService {
   private loaded = false;
@@ -123,7 +106,7 @@ export default class StoreService {
     return new Promise(resolve => resolve(data));
   }
 
-  public cache = <T = any>(namespace: string, key: string, params: any = undefined, resource?: Observable<any>): CacheInterface<T> => {
+  public cache = <T = any>(namespace: string, key: string, params: any = undefined, resource?: Observable<any>): StoreCacheInterface<T> => {
     return {
       'hot': (defaultValue?: any): Observable<T> => this.get(namespace, key, defaultValue),
       'has': (): boolean => this.has(namespace, key, params),
