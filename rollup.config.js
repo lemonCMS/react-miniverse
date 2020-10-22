@@ -43,7 +43,7 @@ export default [
     Object.assign(
         {
             output: {
-                file: pkg.main,
+                file: "cjs/index.js",
                 format: "cjs",
                 exports: "default",
             }

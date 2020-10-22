@@ -1,4 +1,6 @@
-./es
+./es/*
 ./output
 ./node_modules
 .idea
+yarn.lock
+yarn-error.log

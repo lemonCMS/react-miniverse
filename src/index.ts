@@ -1,9 +1,11 @@
 import ApiBaseService from "./api.base.service";
-import CacheService from "./cache.service";
+import StoreService from "./store.service";
 import CookiesService from "./cookies.service";
+import useColdOrHot from "./useColdOrHot";
 
 export default {
     ApiBaseService,
-    CacheService,
+    StoreService,
     CookiesService,
+    useColdOrHot,
 };
