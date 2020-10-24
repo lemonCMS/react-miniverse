@@ -1,4 +1,5 @@
-import typescript from '@rollup/plugin-typescript';
+// import typescript from '@rollup/plugin-typescript';
+import typescript from "rollup-plugin-typescript2";
 import commonjs from '@rollup/plugin-commonjs';
 import babel from '@rollup/plugin-babel';
 import {terser} from "rollup-plugin-terser";
@@ -12,9 +13,9 @@ const baseConfig = {
             exclude: "node_modules/**",
             babelHelpers: "bundled",
         }),
-        typescript({module: 'CommonJS'}),
-        commonjs({extensions: ['.js', '.ts']}), // the ".ts" extension is required
         nodeResolve(),
+        typescript({ useTsconfigDeclarationDir: true }),
+        commonjs({extensions: ['.js', '.ts']}), // the ".ts" extension is required
     ],
     external: [
         ...Object.keys(pkg.dependencies),
@@ -36,7 +37,8 @@ export default [
             output: {
                 file: "cjs/index.js",
                 format: "cjs",
-                exports: "default",
+                exports: "named",
+                sourcemap: true
             }
         },
         baseConfig
@@ -46,7 +48,8 @@ export default [
             output: {
                 file: "cjs/index.min.js",
                 format: "cjs",
-                exports: "default",
+                exports: "named",
+                sourcemap: true
             }
         },
         minifyConfig
@@ -56,7 +59,8 @@ export default [
             output: {
                 file: "es/index.js",
                 format: "esm",
-                exports: "default",
+                exports: "named",
+                sourcemap: true
             }
         },
         baseConfig

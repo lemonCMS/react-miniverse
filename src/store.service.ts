@@ -36,7 +36,9 @@ export default class StoreService implements StoreServiceInterface {
     public has(namespace: string, key: string, params: any = undefined): boolean {
 
         if (typeof params === 'undefined') {
-            return (this.data[namespace] ? (!!this.data[namespace][key].static) : false);
+            return this.data[namespace]
+                && this.data[namespace][key]
+                && !!this.data[namespace][key].static;
         }
 
         return (
@@ -79,6 +81,10 @@ export default class StoreService implements StoreServiceInterface {
     }
 
     public import(data: { [key: string]: any }): void {
+        if (typeof window === 'undefined') {
+            this.loaded = false;
+            this.data = {};
+        }
 
         if (this.loaded || typeof data === 'undefined') {
             return;
@@ -107,7 +113,7 @@ export default class StoreService implements StoreServiceInterface {
     public cache<T = any>(namespace: string, key: string, params: any = undefined, resource?: Observable<any>): StoreCacheInterface<T> {
         return {
             'hot': (defaultValue?: any): Observable<T> => this.get(namespace, key, defaultValue),
-            'has': (): boolean => this.has(namespace, key, params),
+            'isLoaded': (): boolean => this.has(namespace, key, params),
             'cold': (defaultValue?: any): T => this.getStatic(namespace, key, defaultValue),
             'load': (): Observable<T> => this.toObservable(namespace, key, params, resource),
             'toPromise': (): Promise<T> => this.toPromise(namespace, key, params, resource),

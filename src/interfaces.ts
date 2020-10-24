@@ -4,7 +4,7 @@ import {CookieGetOptions, CookieSetOptions} from "universal-cookie";
 
 export interface StoreCacheInterface<T = any> {
     hot: () => Observable<T>;
-    has: (params?: any) => boolean;
+    isLoaded: () => boolean;
     cold: (defaultValue?: any) => T;
     load: () => Observable<T>;
     toPromise: () => Promise<T>;
@@ -25,13 +25,13 @@ export interface DataInterface {
 export interface StoreServiceInterface {
     set<T = any>(namespace: string, key: string, params?: any, value?: T): ReplaySubject<T | undefined>
 
-    has(namespace: string, key: string, params: any): boolean;
+    has(namespace: string, key: string, params?: any): boolean;
 
-    getStatic<T>(namespace: string, key: string, defaultValue: any): T;
+    getStatic<T>(namespace: string, key: string, defaultValue?: any): T;
 
-    get<T = any>(namespace: string, key: string, defaultValue: any): Observable<T>;
+    get<T = any>(namespace: string, key: string, defaultValue?: any): Observable<T>;
 
-    getRaw<T = any>(namespace: string, key: string, defaultValue: any): Observable<T>;
+    getRaw<T = any>(namespace: string, key: string, defaultValue?: any): Observable<T>;
 
     clear(namespace: string, key: string): void;
 
@@ -71,3 +71,8 @@ export interface CookiesServiceInterface {
 export interface UseColdOrHotInterface {
     <T = any>(resource: StoreCacheInterface<T>): T
 }
+
+export interface UseColdOrLoadInterface {
+    <T = any>(resource: StoreCacheInterface<T>): T
+}
+

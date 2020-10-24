@@ -75,7 +75,7 @@ export default class ApiService implements ApiServiceInterface {
         return {source, cancelOptions};
     }
 
-    private prepareUrl(url: string, params?: RequestOptionsInterface): string {
+    private prepareUrl(url: string, params?: any): string {
         return `${url}?${qs.stringify(params, {encode: true})}`;
     }
 }
