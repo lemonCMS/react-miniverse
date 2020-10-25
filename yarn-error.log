@@ -34,8 +34,8 @@ npm manifest:
     "repository": "https://github.com/lemoncms/react-miniverse",
     "author": "Raymond van Vuuren",
     "license": "MIT",
-    "main": "cjs/index.js",
-    "module": "./es/index.js",
+    "main": "cjs/index.tsx",
+    "module": "./es/index.tsx",
     "files": [
       "cjs",
       "es"

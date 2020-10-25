@@ -9,7 +9,14 @@
   "module": "./es/index.js",
   "files": [
     "cjs",
-    "es"
+    "es",
+    "index.d.ts",
+    "api.service.d.ts",
+    "cookies.service.d.ts",
+    "interfaces.d.ts",
+    "store.service.d.ts",
+    "useColdOrHot.d.ts",
+    "useColdOrLoad.d.ts"
   ],
   "scripts": {
     "build": "rollup -c && cp ./build/* .",
