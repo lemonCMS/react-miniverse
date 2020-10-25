@@ -1,6 +1,6 @@
 {
   "name": "react-miniverse",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple rxjs state manager",
   "repository": "https://github.com/lemoncms/react-miniverse",
   "author": "Raymond van Vuuren",
