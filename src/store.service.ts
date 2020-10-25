@@ -22,7 +22,7 @@ export default class StoreService implements StoreServiceInterface {
     private loaded = false;
     private data: DataInterface = {}
 
-    public set<T = any>(namespace: string, key: string, params?: any, value?: T): ReplaySubject<ResourceObservableInterface> {
+    public set<T = any>(namespace: string, key: string, params?: ParamsInterface, value?: T): ReplaySubject<ResourceObservableInterface> {
 
         if (!this.data[namespace]) {
             this.data[namespace] = {};
@@ -188,7 +188,7 @@ export default class StoreService implements StoreServiceInterface {
             return throwError('Resource is required with the use of `toPromise`').toPromise();
         }
 
-        let close$ = new Subject();
+        const close$ = new Subject();
 
         return new Observable<T>(subscriber$ => {
             this.getRaw(namespace, key)

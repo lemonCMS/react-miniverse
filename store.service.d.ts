@@ -3,7 +3,7 @@ import { StoreCacheInterface, StoreServiceInterface, ResourceObservableInterface
 export default class StoreService implements StoreServiceInterface {
     private loaded;
     private data;
-    set<T = any>(namespace: string, key: string, params?: any, value?: T): ReplaySubject<ResourceObservableInterface>;
+    set<T = any>(namespace: string, key: string, params?: ParamsInterface, value?: T): ReplaySubject<ResourceObservableInterface>;
     has(namespace: string, key: string, params?: ParamsInterface, value?: any): boolean;
     getStatic<T>(namespace: string, key: string, params?: ParamsInterface, defaultValue?: any): T;
     get<T = any>(namespace: string, key: string, defaultValue?: any): Observable<ResourceObservableInterface<T>>;

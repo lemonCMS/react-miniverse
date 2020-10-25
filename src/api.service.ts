@@ -6,7 +6,7 @@ import axios, {
 import CookiesService from "./cookies.service";
 import {defer, from, Observable} from "rxjs";
 import {map} from "rxjs/operators";
-import {ApiServiceInterface, RequestOptionsInterface} from "./interfaces";
+import {ApiServiceInterface, DataInterface, ParamsInterface, RequestOptionsInterface} from "./interfaces";
 
 export default class ApiService implements ApiServiceInterface {
     protected api: AxiosInstance;
@@ -28,35 +28,35 @@ export default class ApiService implements ApiServiceInterface {
         });
     }
 
-    get<T = any>(url: string, params?: any, options?: RequestOptionsInterface): Observable<T> {
+    get<T = any>(url: string, params?: ParamsInterface, options?: RequestOptionsInterface): Observable<T> {
         return defer(() => {
             const {cancelOptions} = this.getCancelToken(options);
             return from(this.api.get(this.prepareUrl(url, params), cancelOptions));
         }).pipe(map((response: AxiosResponse) => (response.data)))
     }
 
-    post<T = any>(url: string, data?: any, options?: RequestOptionsInterface): Observable<T> {
+    post<T = any>(url: string, data?: DataInterface, options?: RequestOptionsInterface): Observable<T> {
         return defer(() => {
             const {cancelOptions} = this.getCancelToken(options);
             return from(this.api.post(url, data, cancelOptions));
         }).pipe(map((response: AxiosResponse) => (response.data)));
     }
 
-    put<T = any>(url: string, data?: any, options?: RequestOptionsInterface): Observable<T> {
+    put<T = any>(url: string, data?: DataInterface, options?: RequestOptionsInterface): Observable<T> {
         return defer(() => {
             const {cancelOptions} = this.getCancelToken(options);
             return from(this.api.put(url, data, cancelOptions));
         }).pipe(map((response: AxiosResponse) => (response.data)));
     }
 
-    patch<T = any>(url: string, data?: any, options?: RequestOptionsInterface): Observable<T> {
+    patch<T = any>(url: string, data?: DataInterface, options?: RequestOptionsInterface): Observable<T> {
         return defer(() => {
             const {cancelOptions} = this.getCancelToken(options);
             return from(this.api.patch(url, data, cancelOptions));
         }).pipe(map((response: AxiosResponse) => (response.data)));
     }
 
-    delete<T = any>(url: string, data?: any): Observable<T> {
+    delete<T = any>(url: string, data?: DataInterface): Observable<T> {
         return defer(() => {
             return from(this.api.delete(url, data));
         }).pipe(map((response: AxiosResponse) => (response.data)));
@@ -75,7 +75,7 @@ export default class ApiService implements ApiServiceInterface {
         return {source, cancelOptions};
     }
 
-    private prepareUrl(url: string, params?: any): string {
+    private prepareUrl(url: string, params?: ParamsInterface): string {
         return `${url}?${qs.stringify(params, {encode: true})}`;
     }
 }

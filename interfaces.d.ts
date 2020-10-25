@@ -10,7 +10,7 @@ export interface StoreCacheInterface<T = any> {
 }
 export interface NameSpaceInterface {
     [key: string]: {
-        params: string;
+        params: ParamsInterface;
         value: ReplaySubject<any>;
         static: any;
     };

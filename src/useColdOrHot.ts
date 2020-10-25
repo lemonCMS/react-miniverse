@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {ResourceObservableInterface, StoreCacheInterface} from "./interfaces";
+import {StoreCacheInterface} from "./interfaces";
 import clone from "clone";
 
 const useColdOrHot = <T = any>(resource: StoreCacheInterface<T>, load = false): T => {
@@ -7,11 +7,9 @@ const useColdOrHot = <T = any>(resource: StoreCacheInterface<T>, load = false): 
 
     useEffect(() => {
         if (load && !resource.isLoaded()) {
-            resource.load().subscribe(
-                () => {
-                },
-                (err) => console.error
-            )
+            resource.load().subscribe({
+                error: console.error
+            })
         }
 
         const sub = resource.hot().subscribe((data: T) => setState(clone(data)));
