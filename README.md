@@ -9,7 +9,7 @@ Works great with ``nextjs`` share state between the server and client.
 
 21K minified or only 5.4K gzipped.
 
-#Why did you create this?
+# Why did you create this?
 After setting up Nextjs with redux and redux-saga i was really not looking forward creating the stores and sagas.
 Most of the time a state manager is overkill for just fetching and displaying a resource and forget all about it.
 The work in setting up all those stores over and over again.
@@ -20,7 +20,7 @@ I wanted something simple as in "Hey give me that data" and not having to think 
 - Is loaded? I will give you what i got and will keep you updated with new data.
 - Share state between Server and Client? No problem.
 
-#Installation
+# Installation
 
 npm
 ``npm install react-miniverse``
@@ -34,11 +34,15 @@ Take a look at the example folder.
 The example contains loading clientside only and loading of data trough the server or client.
 
 
-#step 1
+### Step 1, Create an AppContextProvider
 
 Inject the services into our application. We will use context to make the services available throughout the site.
 
-Create a file called ```AppContext.tsx```.  This file contains a simple setup to create the context
+Create a file called ```AppContext.tsx```.  This file contains a simple setup to create the context used throughout the site.
+
+This example contains the interface called ``AppContextInterface``. This is wrong try to be better. 
+
+You probably should create a services class containing some code from ``_app.tsx`` and a ``servicesInterface``.
 
 ```tsx
 import * as React from 'react';
@@ -77,7 +81,10 @@ export const AppProvider = AppContext.Provider;
 export default AppContext;
 ```
 
-### Create your service.
+### Step 2 Create your service.
+
+A service will talk to the backend and returns the response for you to use or to provide it to the StoreService
+The included api service will return ONLY the ``response.data`` and not the whole response object.
 
 ```src/services/placeholder.service```
 
@@ -113,11 +120,11 @@ export default class PlaceholderService {
     }
 }
 ```
+### Step 3 Setting up _app.tsx
 
-Now that the service is created lets put the all together.
-
-
-Open up ``./src/pages/_app.tsx``. Here we will construct the services export data from the store and import it for the client re-hydration.
+Open up ``./src/pages/_app.tsx``. 
+Here we will construct the services export data from the store and import it for the client re-hydration.
+I would recommend putting ``initServices`` and the interface in its own file.
 
 ```tsx
 import '../styles/globals.css'
@@ -304,13 +311,15 @@ export default Home;
 ```
 
 
-# Done
-You are all setup. There is much more to it so please take a look at the sourcecode.
+## Done
+You are all setup. 
+As you can see it is easy to retrieve data and stay up to date.
+There is much more to it so please take a look at the sourcecode.
 
-#Contributing
+## Contributing
 Please do, merge request are welcome.
 
-- Update Readme
+- Update Readme add APi docs
 - Create tests
 
 
