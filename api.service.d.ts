@@ -6,6 +6,7 @@ export default class ApiService implements ApiServiceInterface {
     private cookiesService;
     protected api: AxiosInstance;
     private tokenCookie;
+    private cancelTokens;
     constructor(cookiesService: CookiesService);
     private setTokenInterceptor;
     get<T = any>(url: string, params?: ParamsInterface, options?: RequestOptionsInterface): Observable<T>;
