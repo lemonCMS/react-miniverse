@@ -8,6 +8,7 @@ export interface StoreCacheInterface<T = any> {
     cold: (defaultValue?: any) => T;
     load: () => Observable<T>;
     toPromise: () => Promise<T>;
+    clear: () => void;
 }
 
 export interface NameSpaceInterface {

@@ -159,6 +159,7 @@ export default class StoreService implements StoreServiceInterface {
             'cold': (defaultValue?: any): T => this.getStatic(namespace, key, defaultValue),
             'load': (): Observable<T> => this.toObservable(namespace, key, params, resource),
             'toPromise': (): Promise<T> => this.toPromise(namespace, key, params, resource),
+            'clear': (): void => this.clear(namespace, key),
         }
     }
 

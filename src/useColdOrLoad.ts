@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import {StoreCacheInterface} from "./interfaces";
 import clone from "clone";
 
-const useColdOrLoad = <T = any>(resource: StoreCacheInterface<T>, params: any = {}): T => {
+const useColdOrLoad = <T = any>(resource: StoreCacheInterface<T>, params: any = {}, clear = false): T => {
     const [state, setState] = useState<T>(resource.cold());
 
     useEffect(() => {
@@ -15,6 +15,9 @@ const useColdOrLoad = <T = any>(resource: StoreCacheInterface<T>, params: any = 
 
         return () => {
             sub.unsubscribe();
+            if (clear) {
+                resource.clear();
+            }
         }
     }, [...Object.values(params), ...Object.keys(params)]);
 

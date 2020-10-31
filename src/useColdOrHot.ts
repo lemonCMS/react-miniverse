@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import {StoreCacheInterface} from "./interfaces";
 import clone from "clone";
 
-const useColdOrHot = <T = any>(resource: StoreCacheInterface<T>, load = false): T => {
+const useColdOrHot = <T = any>(resource: StoreCacheInterface<T>, load = false, clear = false): T => {
     const [state, setState] = useState<T>(resource.cold());
 
     useEffect(() => {
@@ -15,6 +15,9 @@ const useColdOrHot = <T = any>(resource: StoreCacheInterface<T>, load = false): 
         const sub = resource.hot().subscribe((data: T) => setState(clone(data)));
 
         return () => {
+            if (clear) {
+                resource.clear();
+            }
             sub.unsubscribe();
         }
     }, []);
