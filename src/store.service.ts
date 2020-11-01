@@ -118,9 +118,18 @@ export default class StoreService implements StoreServiceInterface {
             );
     }
 
+    public completeAll() {
+        Object.keys(this.data).forEach((namespace: string) => {
+            Object.keys(this.data[namespace]).forEach((key: string) => {
+                this.data[namespace][key].value.complete();
+            })
+        });
+    }
+
     public import(data: { [key: string]: any }): void {
         if (typeof window === 'undefined') {
             this.loaded = false;
+            this.completeAll();
             this.data = {};
         }
 
@@ -160,6 +169,10 @@ export default class StoreService implements StoreServiceInterface {
             'load': (): Observable<T> => this.toObservable(namespace, key, params, resource),
             'toPromise': (): Promise<T> => this.toPromise(namespace, key, params, resource),
             'clear': (): void => this.clear(namespace, key),
+            'refresh': (): Observable<T> => {
+                this.clear(namespace, key);
+                return this.toObservable(namespace, key, params, resource)
+            },
         }
     }
 

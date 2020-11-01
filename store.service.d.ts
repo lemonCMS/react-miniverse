@@ -11,6 +11,7 @@ export default class StoreService implements StoreServiceInterface {
     getRaw<T = any>(namespace: string, key: string, defaultValue?: any): Observable<ResourceObservableInterface<T>>;
     clear(namespace: string, key: string): void;
     private getInternal;
+    completeAll(): void;
     import(data: {
         [key: string]: any;
     }): void;

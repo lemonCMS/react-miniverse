@@ -6,6 +6,7 @@ export interface StoreCacheInterface<T = any> {
     isLoaded: () => boolean;
     cold: (defaultValue?: any) => T;
     load: () => Observable<T>;
+    refresh: () => Observable<T>;
     toPromise: () => Promise<T>;
     clear: () => void;
 }
